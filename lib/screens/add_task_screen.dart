@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  AddTaskScreen({required this.addCallback});
-  final Function addCallback;
+  // AddTaskScreen({required this.addCallback});
+  // final Function addCallback;
   final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -37,8 +40,10 @@ class AddTaskScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 if (textController.text != '') {
-                  addCallback(textController.text);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(name: textController.text);
                 }
+                Navigator.pop(context);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
